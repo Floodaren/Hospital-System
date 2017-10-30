@@ -1,0 +1,34 @@
+﻿@model WebApplication1.Models.PatientCombinedPatientLogin
+
+@{
+    ViewBag.Title = "Registrera";
+}
+<link rel="stylesheet" type="text/css" href="~/HomeStyle.css">
+<h2>@ViewBag.Title.</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="account-wall">
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="register">
+                        @using (Html.BeginForm("Registrera", "Home", FormMethod.Post, new { @class = "form-signin" }))
+                        {
+                            @Html.TextBoxFor(a => a.Datausername, null, new { @class = "form-control", placeholder = "Email" })
+                            @Html.PasswordFor(a => a.Datapasswords, new { @class = "form-control", placeholder = "Lösenord" })
+                            @Html.TextBoxFor(a => a.firstname, new { @class = "form-control", placeholder = "Förnamn" })
+                            @Html.TextBoxFor(a => a.lastname, new { @class = "form-control", placeholder = "Efternamn" })
+                            @Html.TextBoxFor(a => a.phonenumber, new { @class = "form-control", placeholder = "Telefonnummer" })
+                            @Html.TextBoxFor(a => a.soc, new { @class = "form-control", placeholder = "Personnummer" })
+                            @Html.TextBoxFor(a => a.zipcode, new { @class = "form-control", placeholder = "Postkod" })
+                            <input type="submit" class="btn btn-lg btn-default btn-block" value="Registrera" />
+                        }
+                        <div id="tabs" data-tabs="tabs">
+                            <p class="text-center">@Html.ActionLink("Har du ett konto?", "Index", "Home")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

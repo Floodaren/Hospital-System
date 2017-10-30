@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<journallist>
+  <journal soc="1111110000">
+
+    <hospitalpost>
+      <post>Här testar vi med lite text</post>
+      <date>2017-10-05 13:46:12</date>
+      <doctorname>Jörgen Gurgel</doctorname>
+    </hospitalpost>
+
+    <hospitalpost>
+      <post>Här testar vi med lite text igen</post>
+      <date>2017-10-03 13:46:12</date>
+      <doctorname>Niklas Svensson</doctorname>
+    </hospitalpost>
+
+    <hospitalpost>
+      <post>Här testar vi</post>
+      <date>2017-10-07 13:40:12</date>
+      <doctorname>Jens Flens</doctorname>
+    </hospitalpost>
+
+  </journal>
+
+
+  <journal>
+
+    <hospitalpost soc="0102030405">
+      <post>Här testar vi med lite tdsfsdext</post>
+      <date>2017-10-05 13:46:12</date>
+      <doctorname>Jörgen Gurgel</doctorname>
+    </hospitalpost>
+
+    <hospitalpost>
+      <post>Här testar vi med lite text ifsdfsdfgen</post>
+      <date>2017-10-03 13:46:12</date>
+      <doctorname>Niklas Svensson</doctorname>
+    </hospitalpost>
+
+    <hospitalpost>
+      <post>Här testar ffsdfdsfvi</post>
+      <date>2017-10-07 13:40:12</date>
+      <doctorname>Jens Flens</doctorname>
+    </hospitalpost>
+
+  </journal>
+
+</journallist>

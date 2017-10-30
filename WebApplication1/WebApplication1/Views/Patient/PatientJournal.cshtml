@@ -1,0 +1,46 @@
+﻿@model ICollection<WebApplication1.Models.HospitalPostASP>
+@{
+    Layout = "~/Views/Shared/_LayoutPageLoggedIn.cshtml";
+    ViewBag.Title = "PatientJournal";
+}
+<link rel="stylesheet" type="text/css" href="~/JournalStyle.css">
+
+<div class="container">
+    <h2>Din journal</h2>
+    @Html.ActionLink("Tillbaka", "Index", "Patient", new { @class = "btn btn-primary btn-lg btn-block" })
+    <hr />
+    <div class="agenda">
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Doktor</th>
+                        <th>Beskrivning</th>
+                    </tr>
+                </thead>
+                <tbody>         
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td class="agenda-time">
+                                <div class="dayofmonth">@Html.DisplayFor(m => Model.ElementAt(i).date)</div>
+                            </td>
+                            <td class="agenda-time">
+                                <div class="dayofmonth">
+                                    @Html.DisplayFor(m => Model.ElementAt(i).doctorFirstname)
+                                    @Html.DisplayFor(m => Model.ElementAt(i).doctorLastname)
+                                </div>
+                            </td>
+                            <td class="agenda-time">
+                                <div class="dayofmonth">
+                                    @Html.DisplayFor(m => Model.ElementAt(i).post)
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

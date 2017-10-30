@@ -1,0 +1,12 @@
+﻿body {
+}
+
+a.list-group-item {
+    height: auto;
+    min-height: 250px;
+}
+
+    a.list-group-item.active small {
+        color: #fff;
+    }
+

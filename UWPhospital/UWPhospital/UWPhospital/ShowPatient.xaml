@@ -1,0 +1,95 @@
+﻿<Page
+    x:Class="UWPhospital.ShowPatient"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPhospital"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0">
+            <Button Name="BackButton" RelativePanel.AlignLeftWithPanel="True" FontFamily="Segoe MDL2 Assets" Content="&#xE0A6;" FontSize="30" Click="BackButton_Click" />
+        </RelativePanel>
+        <TextBlock TextWrapping="Wrap" Text="Patient" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <StackPanel Grid.Row="1">
+            
+            <Grid Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Förnamn:"  HorizontalAlignment="Right" Margin="0,0,7.5,0"/>
+                <TextBlock Name="PatientFirstName" TextWrapping="Wrap" Text="Firstname" Grid.Column="1" Margin="7.5,0,0,0"/>
+            </Grid>
+            
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Efternamn:"  HorizontalAlignment="Right" Margin="0,0,7.5,0"/>
+                <TextBlock Name="PatientLastName" TextWrapping="Wrap" Text="Lastname" Grid.Column="1" Margin="7.5,0,0,0"/>
+            </Grid>
+            
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Postnummer:"  HorizontalAlignment="Right" Margin="0,0,7.5,0"/>
+                <TextBlock Name="PatientZipCode" TextWrapping="Wrap" Text="Zipcode" Grid.Column="1" Margin="7.5,0,0,0"/>
+            </Grid>
+            
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Personnummer:"  HorizontalAlignment="Right" Margin="0,0,7.5,0"/>
+                <TextBlock Name="PatientSoc" TextWrapping="Wrap" Text="SocNr" Grid.Column="1" Margin="7.5,0,0,0"/>
+            </Grid>
+            
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*" />
+
+                    <ColumnDefinition Width="5*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Telefonnummer:"  HorizontalAlignment="Right" Margin="0,0,7.5,0"/>
+                <TextBlock Name="PatientPhoneNr" TextWrapping="Wrap" Text="PhoneNr" Grid.Column="1" Margin="7.5,0,0,0"/>
+            </Grid>
+
+            <Grid Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button Name="ShowJournals" HorizontalAlignment="Center" Content="Journalhistorik" Click="ShowJournals_Click" />
+            </Grid>
+
+
+            <Grid Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="PostInput" TextWrapping="Wrap" PlaceholderText="Fyll i journal här..." Margin="20,0,20,0" MaxWidth="600"/>
+            </Grid>
+
+            <Grid Margin="0,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button Name="SendPost" HorizontalAlignment="Center" Content="Skicka" Click="SendPost_Click"/>
+            </Grid>
+        </StackPanel>
+        
+    </Grid>
+</Page>

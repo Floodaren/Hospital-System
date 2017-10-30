@@ -1,0 +1,100 @@
+﻿<link rel="stylesheet" type="text/css" href="~/ShowPatient.css">
+@{
+    Layout="~/Views/Shared/_LayoutPageLoggedIn.cshtml";
+    ViewBag.Title = "Välkommen ";
+}
+
+<h2>Välkommen @ViewBag.loggedInName</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="well">
+            <h1 class="text-center">Dina uppgifter</h1>
+            <div class="list-group">
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Förnamn </h4>
+                        <p class="list-group-item-text">
+                            @ViewBag.firstname
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangeFirstName", "Patient", new { userId = ViewBag.loginId, value = ViewBag.firstname}, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Efternamn </h4>
+                        <p class="list-group-item-text">
+                            @ViewBag.lastname
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangeLastName", "Patient", new { userId = ViewBag.loginId, value = ViewBag.lastname }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Email </h4>
+                        <p class="list-group-item-text">
+                            @ViewBag.email
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangeEmail", "Patient", new { userId = ViewBag.loginId, value = ViewBag.email }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Lösenord </h4>
+                        <p class="list-group-item-text">
+                            **********
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangePassword", "Patient", new { userId = ViewBag.loginId}, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Telefonnummer </h4>
+                        <p class="list-group-item-text">
+                            @ViewBag.phonenumber
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangePhoneNumber", "Patient", new { userId = ViewBag.loginId, value = ViewBag.phonenumber }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+                <div href="#" class="list-group-item" style="height: auto; min-height: 75px;">
+                    <div class="col-md-6" style="text-align: center">
+                        <h4 class="list-group-item-heading"> Postkod </h4>
+                        <p class="list-group-item-text">
+                            @ViewBag.zipcode
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div style="max-width: 150px; display: block; margin: auto">
+                            @Html.ActionLink("Ändra", "ChangeZipCode", "Patient", new { userId = ViewBag.loginId, value = ViewBag.zipcode }, new { @class = "btn btn-primary btn-lg btn-block" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.ActionLink("Din journal", "PatientJournal", "Patient", new {@class= "btn btn-primary btn-lg btn-block" })
+
+
+

@@ -1,0 +1,33 @@
+﻿@model WebApplication1.Models.PatientCombinedPatientLogin
+
+@{
+    ViewBag.Title = "Hem";
+}
+<link rel="stylesheet" type="text/css" href="~/HomeStyle.css">
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="account-wall">
+                @Html.Raw(TempData["msg"])
+                <div id="my-tab-content" class="tab-content">
+                    <div class="tab-pane active" id="login">
+                        <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                             alt="">
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new {@class="form-signin" }))
+                        {
+                            @Html.TextBoxFor(a => a.Datausername, null, new { @class = "form-control", placeholder = "Email" })
+                            @Html.PasswordFor(a => a.Datapasswords, new { @class = "form-control", placeholder = "Lösenord" })
+                            <input type="submit" class="btn btn-lg btn-default btn-block" value="Logga in" />
+                        }
+                        <div id="tabs" data-tabs="tabs">
+                            <p class="text-center">@Html.ActionLink("Behöver du ett konto?", "Registrera", "Home")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

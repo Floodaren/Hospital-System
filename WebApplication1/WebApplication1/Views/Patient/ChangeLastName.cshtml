@@ -1,0 +1,32 @@
+﻿@model WebApplication1.Models.Settings
+@{
+    Layout = "~/Views/Shared/_LayoutPageLoggedIn.cshtml";
+    ViewBag.Title = "Ändra efternamn";
+}
+
+@using (Html.BeginForm("ChangeLastName", "Patient", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        <legend>Ändra inställning</legend>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="piCurrPass">Nuvarande</label>
+            <div class="col-md-4">
+                <input id="piCurrPass" name="piCurrPass" value="@ViewBag.value" class="form-control input-md" disabled>
+                @Html.HiddenFor(a => a.id, new { @Value = ViewBag.userid })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="piNewPass">Nytt efternamn</label>
+            <div class="col-md-4">
+                @Html.TextBoxFor(a => a.value, null, new { @class = "form-control input-md", placeholder = "Nytt förnamn" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="bCancel"></label>
+            <div class="col-md-8">
+                @Html.ActionLink("Tillbaka", "Index", "Patient", new { @class = "btn btn-danger" })
+                <button type="submit" id="bGodkend" name="bGodkend" class="btn btn-success">Spara</button>
+            </div>
+        </div>
+    </fieldset>
+}

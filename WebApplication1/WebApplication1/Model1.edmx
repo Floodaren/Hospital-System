@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HospitaldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phonenumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DoctorLogInID" Type="int" />
+        </EntityType>
+        <EntityType Name="DoctorLogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DoctorXPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_id" Type="int" Nullable="false" />
+          <Property Name="Doctor_id" Type="int" Nullable="false" />
+          <Property Name="Hosptial" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HospitalPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Doctor_id" Type="int" />
+          <Property Name="Journal_id" Type="int" />
+          <Property Name="Post" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Patient_id" Type="int" Nullable="false" />
+          <Property Name="Doctor_id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soc" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phonenumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Zipcode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PatientLogInID" Type="int" />
+        </EntityType>
+        <EntityType Name="PatientLogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Doctor_DoctorLogIn">
+          <End Role="DoctorLogIn" Type="Self.DoctorLogIn" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorLogIn">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DoctorLogInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorXPatient_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="DoctorXPatient" Type="Self.DoctorXPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DoctorXPatient">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorXPatient_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="DoctorXPatient" Type="Self.DoctorXPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DoctorXPatient">
+              <PropertyRef Name="Patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalPost_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="HospitalPost" Type="Self.HospitalPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalPost">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalPost_Journal">
+          <End Role="Journal" Type="Self.Journal" Multiplicity="0..1" />
+          <End Role="HospitalPost" Type="Self.HospitalPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalPost">
+              <PropertyRef Name="Journal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_PatientLogIn">
+          <End Role="PatientLogIn" Type="Self.PatientLogIn" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientLogIn">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="PatientLogInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitaldbModelStoreContainer">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorLogIn" EntityType="Self.DoctorLogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoctorXPatient" EntityType="Self.DoctorXPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalPost" EntityType="Self.HospitalPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journal" EntityType="Self.Journal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PatientLogIn" EntityType="Self.PatientLogIn" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Doctor_DoctorLogIn" Association="Self.FK_Doctor_DoctorLogIn">
+            <End Role="DoctorLogIn" EntitySet="DoctorLogIn" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorXPatient_Doctor" Association="Self.FK_DoctorXPatient_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="DoctorXPatient" EntitySet="DoctorXPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorXPatient_Patient" Association="Self.FK_DoctorXPatient_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="DoctorXPatient" EntitySet="DoctorXPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalPost_Doctor" Association="Self.FK_HospitalPost_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="HospitalPost" EntitySet="HospitalPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalPost_Journal" Association="Self.FK_HospitalPost_Journal">
+            <End Role="Journal" EntitySet="Journal" />
+            <End Role="HospitalPost" EntitySet="HospitalPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Doctor" Association="Self.FK_Journal_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Patient" Association="Self.FK_Journal_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_PatientLogIn" Association="Self.FK_Patient_PatientLogIn">
+            <End Role="PatientLogIn" EntitySet="PatientLogIn" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HospitaldbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Doctor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DoctorLogInID" Type="Int32" />
+          <NavigationProperty Name="DoctorLogIn" Relationship="Self.FK_Doctor_DoctorLogIn" FromRole="Doctor" ToRole="DoctorLogIn" />
+          <NavigationProperty Name="DoctorXPatient" Relationship="Self.FK_DoctorXPatient_Doctor" FromRole="Doctor" ToRole="DoctorXPatient" />
+          <NavigationProperty Name="HospitalPost" Relationship="Self.FK_HospitalPost_Doctor" FromRole="Doctor" ToRole="HospitalPost" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Doctor" FromRole="Doctor" ToRole="Journal" />
+        </EntityType>
+        <EntityType Name="DoctorLogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Doctor_DoctorLogIn" FromRole="DoctorLogIn" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="DoctorXPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_id" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="Hosptial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_DoctorXPatient_Doctor" FromRole="DoctorXPatient" ToRole="Doctor" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_DoctorXPatient_Patient" FromRole="DoctorXPatient" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="HospitalPost">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Doctor_id" Type="Int32" />
+          <Property Name="Journal_id" Type="Int32" />
+          <Property Name="Post" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_HospitalPost_Doctor" FromRole="HospitalPost" ToRole="Doctor" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK_HospitalPost_Journal" FromRole="HospitalPost" ToRole="Journal" />
+        </EntityType>
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Patient_id" Type="Int32" Nullable="false" />
+          <Property Name="Doctor_id" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Doctor" Relationship="Self.FK_Journal_Doctor" FromRole="Journal" ToRole="Doctor" />
+          <NavigationProperty Name="HospitalPost" Relationship="Self.FK_HospitalPost_Journal" FromRole="Journal" ToRole="HospitalPost" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Journal_Patient" FromRole="Journal" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phonenumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Zipcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PatientLogInID" Type="Int32" />
+          <NavigationProperty Name="DoctorXPatient" Relationship="Self.FK_DoctorXPatient_Patient" FromRole="Patient" ToRole="DoctorXPatient" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK_Journal_Patient" FromRole="Patient" ToRole="Journal" />
+          <NavigationProperty Name="PatientLogIn" Relationship="Self.FK_Patient_PatientLogIn" FromRole="Patient" ToRole="PatientLogIn" />
+        </EntityType>
+        <EntityType Name="PatientLogIn">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_Patient_PatientLogIn" FromRole="PatientLogIn" ToRole="Patient" />
+        </EntityType>
+        <Association Name="FK_Doctor_DoctorLogIn">
+          <End Role="DoctorLogIn" Type="Self.DoctorLogIn" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoctorLogIn">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="DoctorLogInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorXPatient_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="DoctorXPatient" Type="Self.DoctorXPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DoctorXPatient">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalPost_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="HospitalPost" Type="Self.HospitalPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalPost">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoctorXPatient_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="DoctorXPatient" Type="Self.DoctorXPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DoctorXPatient">
+              <PropertyRef Name="Patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HospitalPost_Journal">
+          <End Role="Journal" Type="Self.Journal" Multiplicity="0..1" />
+          <End Role="HospitalPost" Type="Self.HospitalPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Journal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalPost">
+              <PropertyRef Name="Journal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Journal_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_PatientLogIn">
+          <End Role="PatientLogIn" Type="Self.PatientLogIn" Multiplicity="0..1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PatientLogIn">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="PatientLogInID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HospitaldbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Doctor" EntityType="Self.Doctor" />
+          <EntitySet Name="DoctorLogIn" EntityType="Self.DoctorLogIn" />
+          <EntitySet Name="DoctorXPatient" EntityType="Self.DoctorXPatient" />
+          <EntitySet Name="HospitalPost" EntityType="Self.HospitalPost" />
+          <EntitySet Name="Journal" EntityType="Self.Journal" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" />
+          <EntitySet Name="PatientLogIn" EntityType="Self.PatientLogIn" />
+          <AssociationSet Name="FK_Doctor_DoctorLogIn" Association="Self.FK_Doctor_DoctorLogIn">
+            <End Role="DoctorLogIn" EntitySet="DoctorLogIn" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorXPatient_Doctor" Association="Self.FK_DoctorXPatient_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="DoctorXPatient" EntitySet="DoctorXPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalPost_Doctor" Association="Self.FK_HospitalPost_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="HospitalPost" EntitySet="HospitalPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Doctor" Association="Self.FK_Journal_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoctorXPatient_Patient" Association="Self.FK_DoctorXPatient_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="DoctorXPatient" EntitySet="DoctorXPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HospitalPost_Journal" Association="Self.FK_HospitalPost_Journal">
+            <End Role="Journal" EntitySet="Journal" />
+            <End Role="HospitalPost" EntitySet="HospitalPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Journal_Patient" Association="Self.FK_Journal_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_PatientLogIn" Association="Self.FK_Patient_PatientLogIn">
+            <End Role="PatientLogIn" EntitySet="PatientLogIn" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HospitaldbModelStoreContainer" CdmEntityContainer="HospitaldbEntities">
+          <EntitySetMapping Name="Doctor">
+            <EntityTypeMapping TypeName="HospitaldbModel.Doctor">
+              <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Soc" ColumnName="Soc" />
+                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+                <ScalarProperty Name="DoctorLogInID" ColumnName="DoctorLogInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorLogIn">
+            <EntityTypeMapping TypeName="HospitaldbModel.DoctorLogIn">
+              <MappingFragment StoreEntitySet="DoctorLogIn">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoctorXPatient">
+            <EntityTypeMapping TypeName="HospitaldbModel.DoctorXPatient">
+              <MappingFragment StoreEntitySet="DoctorXPatient">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+                <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+                <ScalarProperty Name="Hosptial" ColumnName="Hosptial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalPost">
+            <EntityTypeMapping TypeName="HospitaldbModel.HospitalPost">
+              <MappingFragment StoreEntitySet="HospitalPost">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+                <ScalarProperty Name="Journal_id" ColumnName="Journal_id" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Journal">
+            <EntityTypeMapping TypeName="HospitaldbModel.Journal">
+              <MappingFragment StoreEntitySet="Journal">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+                <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patient">
+            <EntityTypeMapping TypeName="HospitaldbModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Soc" ColumnName="Soc" />
+                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="PatientLogInID" ColumnName="PatientLogInID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PatientLogIn">
+            <EntityTypeMapping TypeName="HospitaldbModel.PatientLogIn">
+              <MappingFragment StoreEntitySet="PatientLogIn">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

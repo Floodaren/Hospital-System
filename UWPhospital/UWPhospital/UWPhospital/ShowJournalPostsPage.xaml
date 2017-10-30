@@ -1,0 +1,55 @@
+﻿<Page
+    x:Class="UWPhospital.ShowJournalPostsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPhospital"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel Grid.Row="0">
+            <Button Name="BackButton" RelativePanel.AlignLeftWithPanel="True" FontFamily="Segoe MDL2 Assets" Content="&#xE0A6;" FontSize="30" Click="BackButton_Click"   />
+        </RelativePanel>
+        <TextBlock TextWrapping="Wrap" Text="Historik" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+        <ListView Name="HospitalPosts" HorizontalAlignment="Stretch" VerticalAlignment="Top" IsItemClickEnabled="False" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0,30,0,0">
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock TextWrapping="Wrap" Text="Beskrivning:"  HorizontalAlignment="Right" FontSize="20" Margin="0,0,7.5,0"/>
+                            <TextBlock  TextWrapping="Wrap" Text="{Binding postData}" FontSize="20" Grid.Column="1" Margin="7.5,0,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock TextWrapping="Wrap" Text="Datum:"  HorizontalAlignment="Left" FontSize="10" Margin="0,0,110,0"/>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding date}" HorizontalAlignment="Left" FontSize="10" Grid.Column="1" Margin="70,0,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,0">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left"  Text="Dr. Förnamn:" FontSize="10" Margin="0,0,80,0"/>
+                            <TextBlock  TextWrapping="Wrap" HorizontalAlignment="Left" Text="{Binding doctorFirstName}" FontSize="10"  Margin="70,0,0,0"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock TextWrapping="Wrap" Text="Dr. Efternamn:"  HorizontalAlignment="Left" FontSize="10" Margin="0,0,0,0"/>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding doctorLastname}" HorizontalAlignment="Left" FontSize="10"  Margin="70,0,0,0"/>
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
